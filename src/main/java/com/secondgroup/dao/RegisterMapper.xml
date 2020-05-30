@@ -1,0 +1,368 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.secondgroup.dao.RegisterMapper">
+  <resultMap id="BaseResultMap" type="com.secondgroup.bean.Register">
+    <id column="rid" jdbcType="VARCHAR" property="rid" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="idCard" jdbcType="VARCHAR" property="idcard" />
+    <result column="siNumber" jdbcType="VARCHAR" property="sinumber" />
+    <result column="registerMoney" jdbcType="DOUBLE" property="registermoney" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="isPay" jdbcType="INTEGER" property="ispay" />
+    <result column="sex" jdbcType="INTEGER" property="sex" />
+    <result column="age" jdbcType="INTEGER" property="age" />
+    <result column="consultation" jdbcType="INTEGER" property="consultation" />
+    <result column="department" jdbcType="INTEGER" property="department" />
+    <result column="did" jdbcType="INTEGER" property="did" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="registerDate" jdbcType="TIMESTAMP" property="registerdate" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    rid, name, idCard, siNumber, registerMoney, phone, isPay, sex, age, consultation, 
+    department, did, status, registerDate, remark
+  </sql>
+  <select id="selectByExample" parameterType="com.secondgroup.bean.RegisterExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from register
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from register
+    where rid = #{rid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from register
+    where rid = #{rid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.secondgroup.bean.RegisterExample">
+    delete from register
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.secondgroup.bean.Register">
+    insert into register (rid, name, idCard, 
+      siNumber, registerMoney, phone, 
+      isPay, sex, age, consultation, 
+      department, did, status, 
+      registerDate, remark)
+    values (#{rid,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{idcard,jdbcType=VARCHAR}, 
+      #{sinumber,jdbcType=VARCHAR}, #{registermoney,jdbcType=DOUBLE}, #{phone,jdbcType=VARCHAR}, 
+      #{ispay,jdbcType=INTEGER}, #{sex,jdbcType=INTEGER}, #{age,jdbcType=INTEGER}, #{consultation,jdbcType=INTEGER}, 
+      #{department,jdbcType=INTEGER}, #{did,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, 
+      #{registerdate,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.secondgroup.bean.Register">
+    insert into register
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="rid != null">
+        rid,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="idcard != null">
+        idCard,
+      </if>
+      <if test="sinumber != null">
+        siNumber,
+      </if>
+      <if test="registermoney != null">
+        registerMoney,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="ispay != null">
+        isPay,
+      </if>
+      <if test="sex != null">
+        sex,
+      </if>
+      <if test="age != null">
+        age,
+      </if>
+      <if test="consultation != null">
+        consultation,
+      </if>
+      <if test="department != null">
+        department,
+      </if>
+      <if test="did != null">
+        did,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="registerdate != null">
+        registerDate,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="rid != null">
+        #{rid,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="idcard != null">
+        #{idcard,jdbcType=VARCHAR},
+      </if>
+      <if test="sinumber != null">
+        #{sinumber,jdbcType=VARCHAR},
+      </if>
+      <if test="registermoney != null">
+        #{registermoney,jdbcType=DOUBLE},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="ispay != null">
+        #{ispay,jdbcType=INTEGER},
+      </if>
+      <if test="sex != null">
+        #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="age != null">
+        #{age,jdbcType=INTEGER},
+      </if>
+      <if test="consultation != null">
+        #{consultation,jdbcType=INTEGER},
+      </if>
+      <if test="department != null">
+        #{department,jdbcType=INTEGER},
+      </if>
+      <if test="did != null">
+        #{did,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="registerdate != null">
+        #{registerdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.secondgroup.bean.RegisterExample" resultType="java.lang.Long">
+    select count(*) from register
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update register
+    <set>
+      <if test="record.rid != null">
+        rid = #{record.rid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null">
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.idcard != null">
+        idCard = #{record.idcard,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sinumber != null">
+        siNumber = #{record.sinumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.registermoney != null">
+        registerMoney = #{record.registermoney,jdbcType=DOUBLE},
+      </if>
+      <if test="record.phone != null">
+        phone = #{record.phone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ispay != null">
+        isPay = #{record.ispay,jdbcType=INTEGER},
+      </if>
+      <if test="record.sex != null">
+        sex = #{record.sex,jdbcType=INTEGER},
+      </if>
+      <if test="record.age != null">
+        age = #{record.age,jdbcType=INTEGER},
+      </if>
+      <if test="record.consultation != null">
+        consultation = #{record.consultation,jdbcType=INTEGER},
+      </if>
+      <if test="record.department != null">
+        department = #{record.department,jdbcType=INTEGER},
+      </if>
+      <if test="record.did != null">
+        did = #{record.did,jdbcType=INTEGER},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.registerdate != null">
+        registerDate = #{record.registerdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.remark != null">
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update register
+    set rid = #{record.rid,jdbcType=VARCHAR},
+      name = #{record.name,jdbcType=VARCHAR},
+      idCard = #{record.idcard,jdbcType=VARCHAR},
+      siNumber = #{record.sinumber,jdbcType=VARCHAR},
+      registerMoney = #{record.registermoney,jdbcType=DOUBLE},
+      phone = #{record.phone,jdbcType=VARCHAR},
+      isPay = #{record.ispay,jdbcType=INTEGER},
+      sex = #{record.sex,jdbcType=INTEGER},
+      age = #{record.age,jdbcType=INTEGER},
+      consultation = #{record.consultation,jdbcType=INTEGER},
+      department = #{record.department,jdbcType=INTEGER},
+      did = #{record.did,jdbcType=INTEGER},
+      status = #{record.status,jdbcType=INTEGER},
+      registerDate = #{record.registerdate,jdbcType=TIMESTAMP},
+      remark = #{record.remark,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.secondgroup.bean.Register">
+    update register
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="idcard != null">
+        idCard = #{idcard,jdbcType=VARCHAR},
+      </if>
+      <if test="sinumber != null">
+        siNumber = #{sinumber,jdbcType=VARCHAR},
+      </if>
+      <if test="registermoney != null">
+        registerMoney = #{registermoney,jdbcType=DOUBLE},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="ispay != null">
+        isPay = #{ispay,jdbcType=INTEGER},
+      </if>
+      <if test="sex != null">
+        sex = #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="age != null">
+        age = #{age,jdbcType=INTEGER},
+      </if>
+      <if test="consultation != null">
+        consultation = #{consultation,jdbcType=INTEGER},
+      </if>
+      <if test="department != null">
+        department = #{department,jdbcType=INTEGER},
+      </if>
+      <if test="did != null">
+        did = #{did,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="registerdate != null">
+        registerDate = #{registerdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where rid = #{rid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.secondgroup.bean.Register">
+    update register
+    set name = #{name,jdbcType=VARCHAR},
+      idCard = #{idcard,jdbcType=VARCHAR},
+      siNumber = #{sinumber,jdbcType=VARCHAR},
+      registerMoney = #{registermoney,jdbcType=DOUBLE},
+      phone = #{phone,jdbcType=VARCHAR},
+      isPay = #{ispay,jdbcType=INTEGER},
+      sex = #{sex,jdbcType=INTEGER},
+      age = #{age,jdbcType=INTEGER},
+      consultation = #{consultation,jdbcType=INTEGER},
+      department = #{department,jdbcType=INTEGER},
+      did = #{did,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      registerDate = #{registerdate,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR}
+    where rid = #{rid,jdbcType=VARCHAR}
+  </update>
+</mapper>

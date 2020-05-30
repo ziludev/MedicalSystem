@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.secondgroup.dao.MedicineMapper">
+  <resultMap id="BaseResultMap" type="com.secondgroup.bean.Medicine">
+    <id column="mid" jdbcType="VARCHAR" property="mid" />
+    <result column="picture" jdbcType="VARCHAR" property="picture" />
+    <result column="inPrice" jdbcType="DOUBLE" property="inprice" />
+    <result column="salPrice" jdbcType="DOUBLE" property="salprice" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="descs" jdbcType="VARCHAR" property="descs" />
+    <result column="qualityDate" jdbcType="INTEGER" property="qualitydate" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="produceFirm" jdbcType="VARCHAR" property="producefirm" />
+    <result column="readme" jdbcType="VARCHAR" property="readme" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    mid, picture, inPrice, salPrice, name, type, descs, qualityDate, description, produceFirm, 
+    readme, remark
+  </sql>
+  <select id="selectByExample" parameterType="com.secondgroup.bean.MedicineExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from medicine
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from medicine
+    where mid = #{mid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from medicine
+    where mid = #{mid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.secondgroup.bean.MedicineExample">
+    delete from medicine
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.secondgroup.bean.Medicine">
+    insert into medicine (mid, picture, inPrice, 
+      salPrice, name, type, 
+      descs, qualityDate, description, 
+      produceFirm, readme, remark
+      )
+    values (#{mid,jdbcType=VARCHAR}, #{picture,jdbcType=VARCHAR}, #{inprice,jdbcType=DOUBLE}, 
+      #{salprice,jdbcType=DOUBLE}, #{name,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, 
+      #{descs,jdbcType=VARCHAR}, #{qualitydate,jdbcType=INTEGER}, #{description,jdbcType=VARCHAR}, 
+      #{producefirm,jdbcType=VARCHAR}, #{readme,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.secondgroup.bean.Medicine">
+    insert into medicine
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="mid != null">
+        mid,
+      </if>
+      <if test="picture != null">
+        picture,
+      </if>
+      <if test="inprice != null">
+        inPrice,
+      </if>
+      <if test="salprice != null">
+        salPrice,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="descs != null">
+        descs,
+      </if>
+      <if test="qualitydate != null">
+        qualityDate,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="producefirm != null">
+        produceFirm,
+      </if>
+      <if test="readme != null">
+        readme,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="mid != null">
+        #{mid,jdbcType=VARCHAR},
+      </if>
+      <if test="picture != null">
+        #{picture,jdbcType=VARCHAR},
+      </if>
+      <if test="inprice != null">
+        #{inprice,jdbcType=DOUBLE},
+      </if>
+      <if test="salprice != null">
+        #{salprice,jdbcType=DOUBLE},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="descs != null">
+        #{descs,jdbcType=VARCHAR},
+      </if>
+      <if test="qualitydate != null">
+        #{qualitydate,jdbcType=INTEGER},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="producefirm != null">
+        #{producefirm,jdbcType=VARCHAR},
+      </if>
+      <if test="readme != null">
+        #{readme,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.secondgroup.bean.MedicineExample" resultType="java.lang.Long">
+    select count(*) from medicine
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update medicine
+    <set>
+      <if test="record.mid != null">
+        mid = #{record.mid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.picture != null">
+        picture = #{record.picture,jdbcType=VARCHAR},
+      </if>
+      <if test="record.inprice != null">
+        inPrice = #{record.inprice,jdbcType=DOUBLE},
+      </if>
+      <if test="record.salprice != null">
+        salPrice = #{record.salprice,jdbcType=DOUBLE},
+      </if>
+      <if test="record.name != null">
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.type != null">
+        type = #{record.type,jdbcType=INTEGER},
+      </if>
+      <if test="record.descs != null">
+        descs = #{record.descs,jdbcType=VARCHAR},
+      </if>
+      <if test="record.qualitydate != null">
+        qualityDate = #{record.qualitydate,jdbcType=INTEGER},
+      </if>
+      <if test="record.description != null">
+        description = #{record.description,jdbcType=VARCHAR},
+      </if>
+      <if test="record.producefirm != null">
+        produceFirm = #{record.producefirm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.readme != null">
+        readme = #{record.readme,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null">
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update medicine
+    set mid = #{record.mid,jdbcType=VARCHAR},
+      picture = #{record.picture,jdbcType=VARCHAR},
+      inPrice = #{record.inprice,jdbcType=DOUBLE},
+      salPrice = #{record.salprice,jdbcType=DOUBLE},
+      name = #{record.name,jdbcType=VARCHAR},
+      type = #{record.type,jdbcType=INTEGER},
+      descs = #{record.descs,jdbcType=VARCHAR},
+      qualityDate = #{record.qualitydate,jdbcType=INTEGER},
+      description = #{record.description,jdbcType=VARCHAR},
+      produceFirm = #{record.producefirm,jdbcType=VARCHAR},
+      readme = #{record.readme,jdbcType=VARCHAR},
+      remark = #{record.remark,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.secondgroup.bean.Medicine">
+    update medicine
+    <set>
+      <if test="picture != null">
+        picture = #{picture,jdbcType=VARCHAR},
+      </if>
+      <if test="inprice != null">
+        inPrice = #{inprice,jdbcType=DOUBLE},
+      </if>
+      <if test="salprice != null">
+        salPrice = #{salprice,jdbcType=DOUBLE},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="descs != null">
+        descs = #{descs,jdbcType=VARCHAR},
+      </if>
+      <if test="qualitydate != null">
+        qualityDate = #{qualitydate,jdbcType=INTEGER},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="producefirm != null">
+        produceFirm = #{producefirm,jdbcType=VARCHAR},
+      </if>
+      <if test="readme != null">
+        readme = #{readme,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where mid = #{mid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.secondgroup.bean.Medicine">
+    update medicine
+    set picture = #{picture,jdbcType=VARCHAR},
+      inPrice = #{inprice,jdbcType=DOUBLE},
+      salPrice = #{salprice,jdbcType=DOUBLE},
+      name = #{name,jdbcType=VARCHAR},
+      type = #{type,jdbcType=INTEGER},
+      descs = #{descs,jdbcType=VARCHAR},
+      qualityDate = #{qualitydate,jdbcType=INTEGER},
+      description = #{description,jdbcType=VARCHAR},
+      produceFirm = #{producefirm,jdbcType=VARCHAR},
+      readme = #{readme,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR}
+    where mid = #{mid,jdbcType=VARCHAR}
+  </update>
+</mapper>
